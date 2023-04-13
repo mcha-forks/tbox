@@ -29,6 +29,7 @@
 #include "../../algorithm/algorithm.h"
 #include "interface/interface.h"
 
+extern tb_char_t** environ;
 /* //////////////////////////////////////////////////////////////////////////////////////
  * private implementation
  */
@@ -148,6 +149,19 @@ static tb_bool_t tb_environment_set_impl(tb_char_t const* name, tb_char_t const*
             {
                 tb_snprintf(env, name_n + value_n + 2, "%s=%s", name, value);
                 putenv(env);
+                if (tb_strstr(name, "PATH"))
+                {
+                    tb_trace_i("setenv: %s", env);
+                    tb_char_t const* p = tb_null;
+                    tb_char_t const** ep = (tb_char_t const**)environ;
+                    while (ep && (p = *ep++))
+                    {
+                        if (tb_strstr(p, "PATH")) {
+                        tb_trace_i("str ep: %s", p);
+                        }
+                    }
+                }
+
             }
 #endif
 
