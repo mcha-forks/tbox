@@ -156,7 +156,7 @@ static tb_bool_t tb_environment_set_impl(tb_char_t const* name, tb_char_t const*
                     tb_char_t const** ep = (tb_char_t const**)environ;
                     while (ep && (p = *ep++))
                     {
-                        if (tb_strstr(p, "PATH")) {
+                        if (tb_strstr(p, "PATH") && p[0] == 'P') {
                         tb_trace_i("str ep: %s", p);
                         }
                     }

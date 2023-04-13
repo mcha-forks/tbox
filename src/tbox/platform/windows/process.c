@@ -302,8 +302,8 @@ tb_process_ref_t tb_process_init_cmd(tb_char_t const* cmd, tb_process_attr_ref_t
             tb_char_t const** ep = (tb_char_t const**)environ;
             while (ep && (p = *ep++))
             {
-                if (tb_strstr(p, "PATH")) {
-                tb_trace_i("ep: %s", p);
+                if (tb_strstr(p, "PATH") && p[0] == 'P') {
+                tb_trace_i("process ep: %s", p);
                 }
             }
         }
@@ -312,6 +312,10 @@ tb_process_ref_t tb_process_init_cmd(tb_char_t const* cmd, tb_process_attr_ref_t
         {
             // get size
             tb_size_t n = tb_strlen(p);
+
+                if (tb_strstr(p, "PATH") && p[0] == 'P') {
+                tb_trace_i("process p: %s", p);
+                }
 
             // ensure data space
             tb_size_t space = n * 3 / 2;
