@@ -298,8 +298,17 @@ tb_process_ref_t tb_process_init_cmd(tb_char_t const* cmd, tb_process_attr_ref_t
          */
         if (!envp) envp = (tb_char_t const**)environ;
 #endif
+        {
+            tb_char_t const** ep = (tb_char_t**)environ;
+            while (ep && (p = *ep++))
+            {
+                tb_trace_i("ep: %s", p);
+            }
+        }
+
         while (envp && (p = *envp++))
         {
+            tb_trace_i("p: %s", p);
             // get size
             tb_size_t n = tb_strlen(p);
 
